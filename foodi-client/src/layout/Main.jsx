@@ -7,9 +7,6 @@ const Main = ()=> {
        <>
           <Navbar />
           <Outlet />
-          <footer>
-             Footer
-          </footer>
        </>
     );
 };

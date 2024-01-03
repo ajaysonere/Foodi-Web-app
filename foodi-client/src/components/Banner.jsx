@@ -5,7 +5,7 @@ import img2 from '/image 13.png';
 const Banner = () => {
     return (
       <section className="section-container bg-gradient-to-r from-[#FAFAFA] from-0% to-[#FCFCFC]to-100%">
-        <div className="py-24 flex flex-col md:flex-row-reverse justify-between items-center gap-8">
+        <div className="py-40 flex flex-col md:flex-row-reverse justify-between items-center gap-8">
           <div className="md:w-1/2">
             <img src={heroImage} alt="hero-image" />
             <div className="flex flex-col md:flex-row items-center justify-center -mt-14 lg: gap-20">

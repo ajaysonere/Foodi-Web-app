@@ -3,9 +3,34 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useEffect, useRef, useState } from "react";
 import Card from "../../components/Card";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
+const simpleNextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    >
+      NEXT
+    </div>
+  );
+};
+
+const simplePrevArrow = (props) => {
+  const { className, style, onClick } = props;
+  <div
+    className={className}
+    style={{ ...style, display: "block", background: "green" }}
+    onClick={onClick}
+  >
+    BACK
+  </div>;
+};
 
 const SpecialDishes = () => {
-    const settings = {
+  const settings = {
     dots: true,
     infinite: false,
     speed: 500,
@@ -38,38 +63,58 @@ const SpecialDishes = () => {
         },
       },
     ],
+    
+    nextArrow: <simpleNextArrow />,
+    prevArrow: <simplePrevArrow />
+    
   };
-  
-  const [recipes , setRecipes] = useState([]);
-  
+
+  const [recipes, setRecipes] = useState([]);
+
   const slider = useRef(null);
+
+  useEffect(() => {
+    const resData = async () => {
+      const res = await fetch("/menu.json");
+      const data = await res.json();
+      const popular = data.filter((item) => item.category === "popular");
+      setRecipes(popular);
+    };
+    resData();
+  }, []);
   
-  useEffect( () => {
-     const resData = async () => {
-        const res = await fetch("/menu.json");
-        const data = await res.json();
-        const popular = data.filter((item) => item.category === 'popular');
-        setRecipes(popular);
-     }
-     resData();
-     
-  } , [])
   
 
   return (
-    <div className="section-container my-20">
+    <div className="section-container my-20 relative">
       <div className="text-left">
         <p className="subtitle">Special Dishes</p>
         <h2 className="heading md:w-[520px]">Standout Dishes From Our Menu</h2>
       </div>
+
+      {/* Arrows */}
+
+      <div className="md:absolute right-3 top-8 mb-10 md:mr-24">
+        <button
+          onClick={() => slider?.current?.slickPrev()}
+          className="btn p-2 rounded-full ml-5"
+        >
+          <FaAngleLeft  className="w-8 h-8 p-1" />
+        </button>
+        <button
+          onClick={() => slider?.current?.slickNext()}
+          className="btn p-2 rounded-full ml-5 bg-green"
+        >
+          <FaAngleRight className="w-8 h-8 p-1"/>
+        </button>
+      </div>
+
       {/* slider */}
 
-      <Slider {...settings}>
-        {
-           recipes.map((item , i)=> { 
-              return  <Card item={item} key={i}/>
-           })
-        }
+      <Slider ref={slider} {...settings} className="overflow-hidden mt-10 space-x-5">
+        {recipes.map((item, i) => {
+          return <Card item={item} key={i} />;
+        })}
       </Slider>
     </div>
   );

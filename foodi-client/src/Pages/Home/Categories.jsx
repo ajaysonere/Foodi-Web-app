@@ -18,7 +18,7 @@ const categoriesItem = [
     Image: "/images/home/category/img3.png",
   },
   {
-    id: "1",
+    id: "4",
     title: "Browse All",
     desc: "(256 items)",
     Image: "/images/home/category/img4.png",

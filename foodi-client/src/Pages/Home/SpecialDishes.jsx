@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Card from "../../components/Card";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
+// eslint-disable-next-line no-unused-vars
 const simpleNextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -18,6 +19,7 @@ const simpleNextArrow = (props) => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 const simplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   <div

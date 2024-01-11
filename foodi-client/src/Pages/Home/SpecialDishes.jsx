@@ -6,7 +6,7 @@ import Card from "../../components/Card";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // eslint-disable-next-line no-unused-vars
-const simpleNextArrow = (props) => {
+const SimpleNextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div
@@ -20,7 +20,7 @@ const simpleNextArrow = (props) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const simplePrevArrow = (props) => {
+const SimplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   <div
     className={className}
@@ -66,8 +66,8 @@ const SpecialDishes = () => {
       },
     ],
     
-    nextArrow: <simpleNextArrow />,
-    prevArrow: <simplePrevArrow />
+    nextArrow: <SimpleNextArrow />,
+    prevArrow: <SimplePrevArrow />
     
   };
 

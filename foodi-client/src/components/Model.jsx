@@ -1,6 +1,8 @@
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import {Link} from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import {authContext} from '../contexts/AuthProvider';
+import { useContext } from "react";
 
 const Model = () => {
   const {
@@ -10,6 +12,21 @@ const Model = () => {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+  
+  const {signUpWithGoogle} = useContext(authContext);
+  
+  
+  // handle sign up with google
+  
+  const handleSignUpWithGoogle = async () => {
+      try {
+        const result = await signUpWithGoogle();
+        const user = result.user;
+        alert("User Logged in Successfully");
+      } catch (error) {
+        console.log(error);
+      }
+  } ;
 
   return (
     <>
@@ -64,14 +81,24 @@ const Model = () => {
                 Don't have an account ?
                 <Link to="/signup" className="underline text-red ml-1">
                   {" "}
-                  Sign Up{" "}
+                  Register{" "}
                 </Link>
               </p>
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                htmlFor="my_modal_5"
+                onClick={() => document.getElementById("my_modal_5").close()}
+              >
+                ✕
+              </button>
             </form>
 
             {/* social btns */}
             <div className="text-center space-x-3 mb-5">
-              <button className="btn btn-circle hover:bg-green hover:text-white">
+              <button
+                className="btn btn-circle hover:bg-green hover:text-white"
+                onClick={handleSignUpWithGoogle}
+              >
                 <FaGoogle />
               </button>
               <button className="btn btn-circle hover:bg-green hover:text-white">

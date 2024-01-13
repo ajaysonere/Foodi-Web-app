@@ -3,6 +3,7 @@ import logo from "/logo.png";
 import { FaRegUser } from "react-icons/fa";
 import Model from "./Model";
 import { authContext } from "../contexts/AuthProvider";
+import Profile from "./Profile";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
@@ -158,13 +159,19 @@ const Navbar = () => {
                 <span className="badge badge-sm indicator-item">8</span>
               </div>
             </div>
-            <button
-              className="btn bg-green text-white rounded-full px-6 flex item-center gap-2"
-              onClick={() => document.getElementById("my_modal_5").showModal()}
-            >
-              {" "}
-              <FaRegUser /> Login{" "}
-            </button>
+            {user ? (
+              <><Profile user = {user} /></>
+            ) : (
+              <button
+                className="btn bg-green text-white rounded-full px-6 flex item-center gap-2"
+                onClick={() =>
+                  document.getElementById("my_modal_5").showModal()
+                }
+              >
+                {" "}
+                <FaRegUser /> Login{" "}
+              </button>
+            )}
             <Model />
           </div>
         </div>

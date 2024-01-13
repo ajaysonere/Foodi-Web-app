@@ -1,8 +1,8 @@
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
-import {Link} from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {authContext} from '../contexts/AuthProvider';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Model = () => {
   const {
@@ -11,10 +11,30 @@ const Model = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
   
-  const {signUpWithGoogle} = useContext(authContext);
+  const {signUpWithGoogle , login } = useContext(authContext);
+  const [errorMessage , setErrorMessage] = useState("");
   
+  // redirection to home pr specific page
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const from = location.state?.from?.pathName || "/";
+  
+  
+  const onSubmit = (data) => {
+      const email = data.email;
+      const password = data.password;
+      // console.log(email , password);
+      login(email , password).then((result) => {
+          const user = result.user;
+          alert("User login")
+          document.getElementById("my_modal_5").close();
+      }).catch((error) => {
+          const errorMessage = error.message;
+          setErrorMessage("user name or password is incorrect");
+      });
+  };
   
   // handle sign up with google
   
@@ -23,6 +43,7 @@ const Model = () => {
         const result = await signUpWithGoogle();
         const user = result.user;
         alert("User Logged in Successfully");
+        navigate(from , {replace : true})
       } catch (error) {
         console.log(error);
       }
@@ -68,6 +89,10 @@ const Model = () => {
                   </a>
                 </label>
               </div>
+              
+              {
+                 errorMessage ? <p className="text-red text-xs italic">{errorMessage}</p> : ""
+              }
 
               {/* submit btn */}
               <div className="form-control mt-6">

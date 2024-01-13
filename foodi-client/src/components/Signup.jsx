@@ -1,18 +1,41 @@
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link ,useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Model from "./Model";
+import { authContext } from "../contexts/AuthProvider";
+import { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-   const {
-     register,
-     handleSubmit,
-     formState: { errors },
-   } = useForm();
+  const { createUser, login } = useContext(authContext);
 
-   const onSubmit = (data) => console.log(data);
+  // redirection to home pr specific page
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const from = location.state?.from?.pathName || "/";
+
+  const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        alert("Account created Successfully");
+        document.getElementById("my_modal_5").close();
+        navigate(from , {replace : true});
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
 
   return (
     <div className="max-w-md bg-white shadow-w-full  mx-auto flex items-center justify-center my-48">

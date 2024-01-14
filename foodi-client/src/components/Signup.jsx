@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Model from "./Model";
 import { authContext } from "../contexts/AuthProvider";
 import { useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 const Signup = () => {
   const {

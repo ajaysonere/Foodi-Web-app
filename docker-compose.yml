@@ -1,0 +1,40 @@
+services:
+  foodi-web-client:
+    image: foodi-web-frontend
+    build: ./foodi-client/
+    stdin_open: true
+    ports:
+      - "5173:5173"
+    networks:
+      - foodi-web-app
+    volumes:
+      - ./foodi-client/:/usr/src/app
+      - /usr/src/app/node_modules
+  foodi-web-server:
+    image: foodi-web-backend
+    build: ./foodi-server/
+    stdin_open: true
+    ports:
+      - "5100:5100"
+    networks:
+      - foodi-web-app
+    depends_on:
+      - mongodb
+    volumes:
+      - ./foodi-server/:/usr/src/app
+      - /usr/src/app/node_modules
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+networks:
+  foodi-web-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
+  
+ 

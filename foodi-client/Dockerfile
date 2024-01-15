@@ -2,9 +2,9 @@ FROM node:20.11.0-alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json .
+COPY *.json .
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 

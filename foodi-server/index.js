@@ -1,6 +1,7 @@
 import expres from 'express';
 import cors from 'cors';
 import connection from './config/dbconfig.js';
+import menuRouter from './routers/menuRouters.js';
 
 const app = expres();
 
@@ -12,10 +13,9 @@ const PORT = 5100;
 app.use(cors());
 app.use(expres.json());
 
+// routers
+app.use("api/v1/menu" , menuRouter);
 
-app.get("/" , (req ,res) => {
-   res.send("Hello World Form Docker");
-});
 
 
 app.listen(PORT ,() => {

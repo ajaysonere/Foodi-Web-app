@@ -1,8 +1,9 @@
 import express from 'express';
-import { getPost } from '../controllers/menuController.js';
+import { createMenu, getAllRecipes } from "../controllers/menuController.js";
 
 const menuRouter = express();
 
-menuRouter.get("/" ,getPost);
+menuRouter.get("/menu" ,getAllRecipes);
+menuRouter.post("/menu" , createMenu);
 
 export default menuRouter;

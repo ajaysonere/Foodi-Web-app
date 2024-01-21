@@ -14,7 +14,7 @@ app.use(cors());
 app.use(expres.json());
 
 // routers
-app.use("api/v1/menu" , menuRouter);
+app.use("/api/v1" , menuRouter);
 
 
 

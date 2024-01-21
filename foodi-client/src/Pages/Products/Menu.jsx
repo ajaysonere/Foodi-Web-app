@@ -13,10 +13,10 @@ const Menu = () => {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const res = await fetch("/menu.json");
+        const res = await fetch("http://localhost:5100/api/v1/menu");
         const data = await res.json();
-        setMenu(data);
-        setFilteredItems(data);
+        setMenu(data.data);
+        setFilteredItems(data.data);
       };
 
       fetchData();
